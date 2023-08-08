@@ -31,3 +31,8 @@ bin/
 # fabric
 
 run/
+
+# custom java
+
+build.gradle
+gradle.properties
