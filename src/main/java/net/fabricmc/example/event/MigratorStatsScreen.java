@@ -24,7 +24,7 @@ import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 
 public class MigratorStatsScreen{
-	private static final String[] STAT_ORDER = new String[]{"name", "x", "y", "z", "distance", "health", "damage", "+sharp", "armor", "+prot"};
+	private static final String[] STAT_ORDER = new String[]{"+name", "x", "y", "z", "distance", "health", "damage", "+sharp", "armor", "+prot"};
 	
 	public static void registerStatsScreen(){
 		HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
@@ -38,20 +38,23 @@ public class MigratorStatsScreen{
 			int[] screen = {client.getWindow().getWidth() / client.options.guiScale, client.getWindow().getHeight() / client.options.guiScale};
 			ArrayList<Pair<AbstractClientPlayerEntity, Double>> players = getPlayersByDistance(client);
 			ArrayList<HashMap<String, InfoPart<Object>>> stats = new ArrayList<>();
-			int x = screen[0] / 2 + 95;
+			int x = screen[0] / 2 + 99; // half hotbar + 4px before name
 			int y = screen[1] - 22;
 			for(Pair<? extends PlayerEntity, ?> player : players) stats.add(getPlayerInfo(player.getLeft(), client));
 			for(String i : STAT_ORDER){
+				boolean alignright = i.charAt(0) != '+'; 
 				if(i.charAt(0) == '+') i = i.substring(1);
 				else x += 4;
 				String title = I18n.translate("stat.amogus." + i);
 				int maxwidth = renderer.getWidth(title);
 				for(HashMap<String, InfoPart<Object>> info : stats) maxwidth = Math.max(maxwidth, info.get(i).pixelsize);
-				renderer.drawWithShadow(matrixStack, title, x, screen[1] - 10, 0xffffffff);
+				if(!alignright) renderer.drawWithShadow(matrixStack, title, x, screen[1] - 10, 0xffffffff);
+				else renderer.drawWithShadow(matrixStack, title, x + maxwidth - renderer.getWidth(title), screen[1] - 10, -1);
 				for(int player = 0; player < stats.size(); player++){
-					HashMap<String, InfoPart<Object>> info = stats.get(player);
-					if(info.get(i).value instanceof Text) renderer.drawWithShadow(matrixStack, (Text)info.get(i).value, x, y - 9 * player, info.get(i).color);
-					else renderer.drawWithShadow(matrixStack, info.get(i).value.toString(), x, y - 9 * player, info.get(i).color);
+					InfoPart<Object> info = stats.get(player).get(i);
+					int rx = x + (alignright ? (maxwidth - (info.value instanceof Text ? renderer.getWidth((Text)info.value) : renderer.getWidth(info.value.toString()))) : 0);
+					if(info.value instanceof Text) renderer.drawWithShadow(matrixStack, (Text)info.value, rx, y - 9 * player, info.color);
+					else renderer.drawWithShadow(matrixStack, info.value.toString(), rx, y - 9 * player, info.color);
 				}
 				x += maxwidth;
 			}
@@ -61,7 +64,7 @@ public class MigratorStatsScreen{
 	
 	public static ArrayList<Pair<AbstractClientPlayerEntity, Double>> getPlayersByDistance(MinecraftClient client){
 		ArrayList<Pair<AbstractClientPlayerEntity, Double>> players = new ArrayList<>();
-		for(AbstractClientPlayerEntity player : client.world.getPlayers()) if(GlowHelper.isMigrator(player))
+		for(AbstractClientPlayerEntity player : client.world.getPlayers()) if(!GlowHelper.isMigrator(player))
 			players.add(new Pair<>(player, player.getPos().distanceTo(client.player.getPos())));
 		ArrayList<Pair<AbstractClientPlayerEntity, Double>> sorted = new ArrayList<>();
 		for(Pair<AbstractClientPlayerEntity, Double> pair : players) for(int i = 0; i <= sorted.size(); i++) try {
