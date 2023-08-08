@@ -23,7 +23,7 @@ Controls are customizable, but default controls are:
 - n: toggle tracers (lines) to migration cape wearers
 - g: increase or decrease [shift] brightness scale by 1 or toggle [alt] between 1 and 5
 - b: increase or decrease [shift] FOV by 10 or toggle [alt] between 30 and 110
-- u: display information about all migration cape wearers
+- u: display stats of all migration cape wearers once or [alt] continuously
 
 ## License
 
