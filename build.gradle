@@ -4,8 +4,8 @@ plugins {
 }
 
 // Set Java to version 17
-compileJava.options.fork = true
-compileJava.options.forkOptions.executable = '/home/victor/bin/java/jdk-17/bin/javac'
+//compileJava.options.fork = true
+//compileJava.options.forkOptions.executable = 'build path here'
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
