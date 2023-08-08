@@ -2,7 +2,17 @@
   "key.amogus.toggleglow": "Toggle Migrator Glowing",
   "key.amogus.gammaboost": "Change gamma by 1, alt: set 1|5",
   "key.amogus.fovchange": "Change FOV by 10, alt: set 30|110",
-  "key.amogus.stats": "Show Migrator stats",
+  "key.amogus.stats": "Show Migrator stats, alt: permanent",
   "key.amogus.line": "Toggle Migrator Tracing",
-  "key.categories.amogus": "AMOGUS Keybinds"
+  "key.categories.amogus": "AMOGUS Keybinds",
+  "stat.amogus.name": "Name",
+  "stat.amogus.x": "X",
+  "stat.amogus.y": "Y",
+  "stat.amogus.z": "Z",
+  "stat.amogus.distance": "dist",
+  "stat.amogus.health": "HP",
+  "stat.amogus.damage": "\ud83d\udde1",
+  "stat.amogus.sharp": "",
+  "stat.amogus.armor": "\ud83d\udee1",
+  "stat.amogus.prot": ""
 }

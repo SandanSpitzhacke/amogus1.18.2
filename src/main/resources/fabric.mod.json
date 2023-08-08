@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "id": "amogus",
-  "version": "v2.2.0",
+  "version": "v2.3.0",
 
   "name": "AMOGUS",
-  "description": "§4A§rnti §4M§rigrator §4O§rptions, §4G§ramma §4U§rnblock §4S§rystem\nThis mod shows the positions of players with migration capes by making them glow like players shot by spectral arrows but red (#bf1f00, impossible with vanilla), giving them a disadvantage at hiding. Future versions might include reach against migration cape wearers.\nIt will also re-enables editing the options.txt file beyond the in-game limits and changing render distance in 1.19 and increases the in-game \"gamma\" top limit to 5.0/500%, the top limit for speedrunning, or higher.\nThe top limit, Migrator glowing and current FOV are adjustable using keybinds (press to raise, shift to lower, alt to use set values).\nDefault keys (changeable in options›keybinds):\nr - toggle Migrator glowing\ng - change gamma (Brightness) multiplier\nb - change FOV\nu - display stats of migrators in chat\nn - show Tracers to Migrators\n§e#saveminecraft",
+  "description": "§4A§rnti §4M§rigrator §4O§rptions, §4G§ramma §4U§rnblock §4S§rystem\nThis mod shows the positions of players with migration capes by making them glow like players shot by spectral arrows but red (#bf1f00, impossible with vanilla), giving them a disadvantage at hiding. Future versions might include reach against migration cape wearers.\nIt will also re-enables editing the options.txt file beyond the in-game limits and changing render distance in 1.19 and increases the in-game \"gamma\" top limit to 5.0/500%, the top limit for speedrunning, or higher.\nThe top limit, Migrator glowing and current FOV are adjustable using keybinds (press to raise, shift to lower, alt to use set values).\nDefault keys (changeable in options›keybinds):\nr - toggle Migrator glowing\ng - change gamma (Brightness) multiplier\nb - change FOV\nu - display stats of migrators\nn - show Tracers to Migrators\n§e#saveminecraft",
   "authors": [
     "0x1f401"
   ],
   "contact": {
     "homepage": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    "sources": "https://github.com/SandanSpitzhacke/AMOGUS",
-    "issues": "https://github.com/SandanSpitzhacke/AMOGUS/issues"
+    "sources": "https://github.com/SandanSpitzhacke/amogus1.18.2",
+    "issues": "https://github.com/SandanSpitzhacke/amogus1.18.2/issues"
   },
 
   "license": "CC0-1.0",
