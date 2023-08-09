@@ -35,7 +35,7 @@ public class MigratorLinesMixin{
 		if(!(entity instanceof AbstractClientPlayerEntity)) return;
 		if(!GlowHelper.isMigrator((AbstractClientPlayerEntity)entity)) return;
 		MinecraftClient client = MinecraftClient.getInstance();
-		Vec3d line = client.cameraEntity.getClientCameraPosVec(tickDelta).add(client.player.getRotationVec(tickDelta)).subtract(entity.getClientCameraPosVec(tickDelta));
+		Vec3d line = client.cameraEntity.getClientCameraPosVec(tickDelta).add(client.player.getRotationVec(tickDelta).multiply(0.99)).subtract(entity.getClientCameraPosVec(tickDelta));
 		VertexConsumer buffer = vertex.getBuffer(RenderLayer.getLines());
 		Matrix4f pos = matrices.peek().getPositionMatrix();
 		Matrix3f normal = matrices.peek().getNormalMatrix();
