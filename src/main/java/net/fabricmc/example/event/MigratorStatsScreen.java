@@ -64,7 +64,7 @@ public class MigratorStatsScreen{
 	
 	public static ArrayList<Pair<AbstractClientPlayerEntity, Double>> getPlayersByDistance(MinecraftClient client){
 		ArrayList<Pair<AbstractClientPlayerEntity, Double>> players = new ArrayList<>();
-		for(AbstractClientPlayerEntity player : client.world.getPlayers()) if(!GlowHelper.isMigrator(player))
+		for(AbstractClientPlayerEntity player : client.world.getPlayers()) if(GlowHelper.isMigrator(player))
 			players.add(new Pair<>(player, player.getPos().distanceTo(client.player.getPos())));
 		ArrayList<Pair<AbstractClientPlayerEntity, Double>> sorted = new ArrayList<>();
 		for(Pair<AbstractClientPlayerEntity, Double> pair : players) for(int i = 0; i <= sorted.size(); i++) try {
