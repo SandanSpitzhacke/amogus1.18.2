@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.fabricmc.example.GlowHelper;
-import net.fabricmc.example.event.KeyInputHandler;
+import net.fabricmc.example.ModConfig;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 
@@ -15,7 +15,7 @@ public abstract class MigratorGlowMixin{
 	
 	@Inject(at = @At("RETURN"), method = "isGlowing()Z", cancellable = true)
 	void isGlowing(CallbackInfoReturnable<Boolean> info){
-		if(!KeyInputHandler.glowing || info.getReturnValueZ() || !((Object)this instanceof AbstractClientPlayerEntity)) return;
+		if(!ModConfig.get().glow.active || info.getReturnValueZ() || !((Object)this instanceof AbstractClientPlayerEntity)) return;
 		info.setReturnValue(GlowHelper.isMigrator((AbstractClientPlayerEntity)(Object)this));
 	}
 }

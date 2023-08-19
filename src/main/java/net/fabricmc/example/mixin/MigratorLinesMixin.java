@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.fabricmc.example.GlowHelper;
-import net.fabricmc.example.event.KeyInputHandler;
+import net.fabricmc.example.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.Frustum;
@@ -25,13 +25,13 @@ import net.minecraft.util.math.Vec3d;
 public class MigratorLinesMixin{
 	@Inject(at = @At(value="HEAD"), method = "shouldRender", cancellable = true)
 	public <E extends Entity> void shouldRender(E entity, Frustum frustum, double x, double y, double z, CallbackInfoReturnable<Boolean> info){
-		if(KeyInputHandler.tracing && entity instanceof AbstractClientPlayerEntity && GlowHelper.isMigrator((AbstractClientPlayerEntity)entity)) info.setReturnValue(true);
+		if(ModConfig.get().lines.active && entity instanceof AbstractClientPlayerEntity && GlowHelper.isMigrator((AbstractClientPlayerEntity)entity)) info.setReturnValue(true);
 	}
 	
 	
 	@Inject(at = @At(value="INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;pop()V"), method = "render")
 	<E extends Entity> void render(E entity, double x, double y, double z, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertex, int light, CallbackInfo info){
-		if(!KeyInputHandler.tracing) return;
+		if(!ModConfig.get().lines.active) return;
 		if(!(entity instanceof AbstractClientPlayerEntity)) return;
 		if(!GlowHelper.isMigrator((AbstractClientPlayerEntity)entity)) return;
 		MinecraftClient client = MinecraftClient.getInstance();
@@ -39,7 +39,8 @@ public class MigratorLinesMixin{
 		VertexConsumer buffer = vertex.getBuffer(RenderLayer.getLines());
 		Matrix4f pos = matrices.peek().getPositionMatrix();
 		Matrix3f normal = matrices.peek().getNormalMatrix();
-		buffer.vertex(pos, 0f, entity.getStandingEyeHeight(), 0f).color(0xffbf1f00).normal(normal, (float)line.x, (float)line.y, (float)line.z).next();
-		buffer.vertex(pos, (float)line.x, (float)line.y + 1*entity.getStandingEyeHeight(), (float)line.z).color(0xffbf1f00).normal(normal, (float)line.x, (float)line.y, (float)line.z).next();
+		int color = ModConfig.get().lines.argbAt((float)line.length());
+		buffer.vertex(pos, 0f, entity.getStandingEyeHeight(), 0f).color(color).normal(normal, (float)line.x, (float)line.y, (float)line.z).next();
+		buffer.vertex(pos, (float)line.x, (float)line.y + 1*entity.getStandingEyeHeight(), (float)line.z).color(color).normal(normal, (float)line.x, (float)line.y, (float)line.z).next();
 	}
 }

@@ -10,7 +10,8 @@
     "GlowColorMixin",
     "F3AddTogglesMixin",
     "GammaUnblockMixin",
-    "MigratorLinesMixin"
+    "MigratorLinesMixin",
+    "ModMenuUpdateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFW;
 
+import net.fabricmc.example.ModConfig;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -12,10 +13,10 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 
 public class KeyInputHandler {
-	public static boolean glowing = true;
-	public static boolean tracing = true;
+//	public static boolean glowing = true;
+//	public static boolean tracing = true;
 	public static boolean display = true;
-	public static int gammamod = 5;
+//	public static int gammamod = 5;
 	public static KeyBinding glowtoggle;
 	public static KeyBinding gammakey;
 	public static KeyBinding fovkey;
@@ -25,26 +26,32 @@ public class KeyInputHandler {
 	public static void registerKeyInputs(){
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if(linekey.wasPressed()){
-				tracing = !tracing;
-				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Migrator tracing: " + tracing));
+				ModConfig.get().lines.active = !ModConfig.get().lines.active;
+				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Migrator tracing: " + ModConfig.get().lines.active));
 			}
 			if(glowtoggle.wasPressed()){
-				glowing = !glowing;
-				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Migrator glowing: " + glowing));
+				ModConfig.get().glow.active = !ModConfig.get().glow.active;
+				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Migrator glowing: " + ModConfig.get().glow.active));
 			}
 			if(gammakey.wasPressed()){
-				if(!Screen.hasAltDown()) gammamod += Screen.hasShiftDown() ? -1 : 1;
-				else gammamod = gammamod > 3 ? 1 : 5;
-				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Gamma Multiplier: " + gammamod));
+//				if(!Screen.hasAltDown()) gammamod += Screen.hasShiftDown() ? -1 : 1;
+//				else gammamod = gammamod > 3 ? 1 : 5;
+				if(ModConfig.get().getToggle()) ModConfig.get().gamma.setToggled();
+				else ModConfig.get().gamma.setShifted(!Screen.hasShiftDown());
+				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Gamma Multiplier: " + ModConfig.get().gamma.current));
 			}
 			if(fovkey.wasPressed()){
-				if(!Screen.hasAltDown()) // freeze with fov < 1
-					if(client.options.fov > 10) client.options.fov += Screen.hasShiftDown() ? -10 : 10;
-					else client.options.fov *= Screen.hasShiftDown() ? (client.options.fov >= 10) ? 0.1 : 1 : 10;
-				else client.options.fov = client.options.fov > 70 ? 30 : 110;
+//				if(!Screen.hasAltDown()) // freeze with fov < 1
+//					if(client.options.fov > 10) client.options.fov += Screen.hasShiftDown() ? -10 : 10;
+//					else client.options.fov *= Screen.hasShiftDown() ? (client.options.fov >= 10) ? 0.1 : 1 : 10;
+//				else client.options.fov = client.options.fov > 70 ? 30 : 110;
+				if(ModConfig.get().getToggle()) ModConfig.get().fov.setToggled();
+				else ModConfig.get().fov.setShifted(!Screen.hasShiftDown());
+				client.options.fov = ModConfig.get().fov.current;
 				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r FOV: " + (float)client.options.fov));
 			}
 			if(statskey.wasPressed()){
+				client.inGameHud.getChatHud().addMessage(Text.of(String.valueOf(ModConfig.get().glow.color.toargb())));
 				if(Screen.hasAltDown()){
 					display = !display;
 					client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Showing migrator stats: " + display));
