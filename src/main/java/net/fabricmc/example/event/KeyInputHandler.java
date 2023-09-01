@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.option.Option;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 
@@ -34,10 +35,11 @@ public class KeyInputHandler {
 				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Migrator glowing: " + ModConfig.get().glow.active));
 			}
 			if(gammakey.wasPressed()){
-//				if(!Screen.hasAltDown()) gammamod += Screen.hasShiftDown() ? -1 : 1;
-//				else gammamod = gammamod > 3 ? 1 : 5;
+				int current = ModConfig.get().gamma.current;
 				if(ModConfig.get().getToggle()) ModConfig.get().gamma.setToggled();
 				else ModConfig.get().gamma.setShifted(!Screen.hasShiftDown());
+				if(ModConfig.get().gamma.current != 0 && current != 0)
+					Option.GAMMA.set(client.options, Math.abs(client.options.gamma / current * ModConfig.get().gamma.current) * (ModConfig.get().gamma.current < 0 ? -1 : 1));
 				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Gamma Multiplier: " + ModConfig.get().gamma.current));
 			}
 			if(fovkey.wasPressed()){

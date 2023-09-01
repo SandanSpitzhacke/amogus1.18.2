@@ -16,8 +16,8 @@ public abstract class GlowColorMixin{
 	void getTeamColorValue(CallbackInfoReturnable<Integer> info){
 		if(ModConfig.get().glow.active && (Object)this instanceof AbstractClientPlayerEntity) 
 			if(GlowHelper.isMigrator((AbstractClientPlayerEntity)(Object)this))
-				if(ModConfig.get().glow.overrideColor)
-					info.setReturnValue(0xbf1f00);
+				if(ModConfig.get().glow.overridecolor)
+					info.setReturnValue(ModConfig.get().glow.color.toargb());
 	}
 	
 	@Inject(at = @At("RETURN"), method = "isGlowingLocal()Z", cancellable = true)
@@ -25,4 +25,4 @@ public abstract class GlowColorMixin{
 		if(!ModConfig.get().glow.active || info.getReturnValueZ() || !((Object)this instanceof AbstractClientPlayerEntity)) return;
 		info.setReturnValue(GlowHelper.isMigrator((AbstractClientPlayerEntity)(Object)this));
 	}
-} 
+}

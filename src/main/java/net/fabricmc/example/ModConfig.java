@@ -62,9 +62,9 @@ public class ModConfig implements ConfigData{
 	public static class LineOption{
 		@ConfigEntry.Gui.Excluded
 		public Color color1, color2;
-		public String colorstr1 = "bf1f00", colorstr2 = "5f007f";
+		public String colorstr1 = "bf1f00", colorstr2 = "bf1f00";
 		public Gradient gradient = Gradient.RGB;
-		public int mindist = 0, maxdist = 50;
+		public int mindist = 0, maxdist = 256;
 		public boolean active = true;
 		public int argbAt(float distance){
 			if(maxdist == mindist) return color1.toargb();
@@ -76,7 +76,7 @@ public class ModConfig implements ConfigData{
 		@ConfigEntry.Gui.Excluded
 		public Color color;
 		public String colorstr = "bf1f00";
-		public boolean overrideColor = true;
+		public boolean overridecolor = true;
 		public boolean active = true;
 	}
 	
