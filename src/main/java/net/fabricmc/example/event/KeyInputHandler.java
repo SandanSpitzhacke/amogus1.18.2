@@ -11,6 +11,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.network.packet.c2s.play.PlayerInputC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.text.Text;
 
 public class KeyInputHandler {
@@ -53,7 +55,12 @@ public class KeyInputHandler {
 				client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r FOV: " + (float)client.options.fov));
 			}
 			if(statskey.wasPressed()){
-				client.inGameHud.getChatHud().addMessage(Text.of(String.valueOf(ModConfig.get().glow.color.toargb())));
+				// movement tests
+//				client.inGameHud.getChatHud().addMessage(Text.of(String.valueOf(ModConfig.get().glow.color.toargb())));
+//				client.getNetworkHandler().sendPacket(new PlayerInputC2SPacket(1, 1, false, false));
+//				client.player.setVelocityClient(0.1, 0, 0);
+//				new KeyBinding();
+//				client.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.Full(client.player.getX()+0.1, client.player.getY(), client.player.getZ(), client.player.getYaw(), client.player.getPitch(), client.player.isOnGround()));
 				if(Screen.hasAltDown()){
 					display = !display;
 					client.inGameHud.getChatHud().addMessage(Text.of("§4§l[\u0d9e]:§r Showing migrator stats: " + display));

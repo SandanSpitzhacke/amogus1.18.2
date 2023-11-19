@@ -11,7 +11,9 @@
     "F3AddTogglesMixin",
     "GammaUnblockMixin",
     "MigratorLinesMixin",
-    "ModMenuUpdateMixin"
+    "ModMenuUpdateMixin",
+    "TextUnicodeMixin",
+    "TextUnicodeMixin$UnicodeUnderlineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

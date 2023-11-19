@@ -5,6 +5,7 @@ import net.minecraft.client.Keyboard;
 
 @Mixin(Keyboard.class)
 public class F3AddTogglesMixin {
+//	KeybindsScreen x = ChatScreen;
 	/*// unused in 1.18 but important in 1.19
 	
 	@Shadow @Final
